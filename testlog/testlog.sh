@@ -1,5 +1,5 @@
 #The tester : https://github.com/zstenger93/42_minishell_tester.git
-
+#Only test the mand part
 
 # **************************************************************************** #
 #                                     PRASING                                  #
