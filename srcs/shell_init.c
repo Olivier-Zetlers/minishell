@@ -51,8 +51,8 @@ t_shell	*shell_init(char *envp[])
 	if (!shell)
 		return (NULL);
 	shell->env = env_init(envp);
-	if (shell->env)
-		update_shlvl(&shell->env);
+	// if (shell->env)      // Removed to align with GNU Bash behavior
+	update_shlvl(&shell->env);
 	shell->last_status = 0;
 	shell->running = 1;
 	shell->interactive = 0;
