@@ -97,8 +97,6 @@ t_token	*lexer_tokenize(char *input)
 {
 	t_lexer	lex;
 
-	if (!input)
-		return (NULL);
 	lex.input = input;
 	lex.pos = 0;
 	lex.quote = QUOTE_NONE;
