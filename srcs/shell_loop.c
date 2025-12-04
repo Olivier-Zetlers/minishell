@@ -72,8 +72,6 @@ void	shell_execute_line(t_shell *shell, char *line)
 {
 	t_token	*tokens;
 
-	if (!line || !*line)
-		return ;
 	tokens = lexer_tokenize(line);
 	if (!tokens)
 	{
