@@ -85,7 +85,7 @@ char	*extract_word(t_lexer *lex)
 	size_t	capacity;
 
 	capacity = 128;
-	word = malloc(capacity);
+	word = safe_malloc(capacity);
 	if (!word)
 		return (NULL);
 	size = 0;
