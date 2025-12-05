@@ -25,7 +25,7 @@ char	*read_line_noninteractive(void)
 		ret = read(STDIN_FILENO, &buf[i], 1);
 		if (ret <= 0)
 		{
-			if (i == 0)
+			if ((i == 0) && (ret == 0))
 				return (NULL);
 			break ;
 		}
