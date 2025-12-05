@@ -50,7 +50,7 @@ static int	append_to_word(char **word, size_t *size, size_t *cap, char c)
 	if (*size >= *cap - 1)
 	{
 		*cap *= 2;
-		new_word = realloc(*word, *cap);
+		new_word = mini_realloc(*word, (*cap) / 2, *cap);
 		if (!new_word)
 		{
 			free(*word);

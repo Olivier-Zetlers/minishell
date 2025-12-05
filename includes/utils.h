@@ -31,7 +31,7 @@ char	*ft_itoa(int n);
 
 /* Memory utilities */
 void	*safe_malloc(size_t size);
-void	safe_free(void *ptr);
+void	*mini_realloc(void *ptr, size_t old_size, size_t new_size);
 
 /* Error handling */
 void	print_error(char *context, char *msg);

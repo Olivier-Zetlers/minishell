@@ -1,16 +1,33 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   memory_utils.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: student <student@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/01 00:00:00 by student          #+#    #+#             */
-/*   Updated: 2025/01/01 00:00:00 by student         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   memory_utils.c									 :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: student <student@42.fr>					+#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2025/01/01 00:00:00 by student		  #+#	#+#			 */
+/*   Updated: 2025/01/01 00:00:00 by student		 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "utils.h"
+
+static void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	size_t			i;
+	unsigned char	*d;
+	const unsigned char	*s;
+
+	d = (unsigned char *)dst;
+	s = (const unsigned char *)src;
+	i = 0;
+	while (i < n)
+	{
+		d[i] = s[i];
+		i++;
+	}
+	return (dst);
+}
 
 void	*safe_malloc(size_t size)
 {
@@ -25,27 +42,25 @@ void	*safe_malloc(size_t size)
 	return (ptr);
 }
 
-int	ft_atoi(const char *str)
+void	*mini_realloc(void *ptr, size_t old_size, size_t new_size)
 {
-	int	result;
-	int	sign;
+	void	*new_ptr;
 
-	result = 0;
-	sign = 1;
-	while (ft_isspace(*str))
-		str++;
-	if (*str == '-' || *str == '+')
+	if (new_size == 0)
 	{
-		if (*str == '-')
-			sign = -1;
-		str++;
+		free(ptr);
+		return (NULL);
 	}
-	while (*str >= '0' && *str <= '9')
-	{
-		result = result * 10 + (*str - '0');
-		str++;
-	}
-	return (result * sign);
+	if (ptr == NULL)
+		return (safe_malloc(new_size));
+	new_ptr = safe_malloc(new_size);
+	if (new_ptr == NULL)
+		return (NULL);
+	if (old_size > new_size)
+		old_size = new_size;
+	ft_memcpy(new_ptr, ptr, old_size);
+	free(ptr);
+	return (new_ptr);
 }
 
 static int	get_num_len(int n)

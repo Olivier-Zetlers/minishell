@@ -76,6 +76,7 @@ SRCS_ENV	= srcs/environment/env_manager.c \
 
 SRCS_UTILS	= srcs/utils/string_utils.c \
 			  srcs/utils/string_utils2.c \
+			  srcs/utils/string_utils3.c \
 			  srcs/utils/memory_utils.c \
 			  srcs/utils/error_handler.c \
 			  srcs/utils/ft_substr.c
