@@ -66,11 +66,11 @@ static int	do_chdir_update(t_shell *shell, char *target, char *expanded)
 		old_pwd[0] = '\0';
 	if (chdir(target) == -1)
 	{
-		safe_free(expanded);
+		free(expanded);
 		print_errno_error("cd", target);
 		return (1);
 	}
-	safe_free(expanded);
+	free(expanded);
 	return (update_pwd_env(shell, old_pwd));
 }
 
@@ -90,7 +90,7 @@ int	builtin_cd(t_shell *shell, char **argv)
 		target = expanded;
 	if (!target || !*target)
 	{
-		safe_free(expanded);
+		free(expanded);
 		print_error("cd", "HOME not set");
 		return (1);
 	}

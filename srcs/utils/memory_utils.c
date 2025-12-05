@@ -25,12 +25,6 @@ void	*safe_malloc(size_t size)
 	return (ptr);
 }
 
-void	safe_free(void *ptr)
-{
-	if (ptr)
-		free(ptr);
-}
-
 int	ft_atoi(const char *str)
 {
 	int	result;
