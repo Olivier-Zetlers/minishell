@@ -104,7 +104,7 @@ t_token	*lexer_tokenize(char *input)
 	if (!tokenize_loop(&lex))
 	{
 		token_list_free(lex.tokens);
-		print_quote_error(lex.quote);
+		write(2, "minishell: memory allocation failed\n", 36);
 		return (NULL);
 	}
 	if (lex.quote != QUOTE_NONE)
