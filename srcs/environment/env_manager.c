@@ -97,8 +97,7 @@ t_env	*env_init(char *envp[])
 				env_add_back(&env, node);
 			free(key);
 		}
-		if (value)
-			free(value);
+		free(value);
 		i++;
 	}
 	return (env);
