@@ -55,8 +55,7 @@ void	token_list_free(t_token *tokens)
 	while (tokens)
 	{
 		tmp = tokens->next;
-		if (tokens->value)
-			free(tokens->value);
+		free(tokens->value);
 		free(tokens);
 		tokens = tmp;
 	}
