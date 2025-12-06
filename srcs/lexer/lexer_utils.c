@@ -15,7 +15,7 @@
 
 int	is_operator_char(char c)
 {
-	return (c == '|' || c == '<' || c == '>' || c == ';');
+	return (c == '|' || c == '<' || c == '>');
 }
 
 static int	is_fd_redir(char *str)
@@ -71,8 +71,6 @@ t_token_type	get_operator_type(char *str, int *len)
 	}
 	if (str[i] == '|')
 		return (*len = i + 1, TOKEN_PIPE);
-	if (str[i] == ';')
-		return (*len = i + 1, TOKEN_SEMICOLON);
 	if (str[i] == '<')
 		return (*len = i + 1, TOKEN_LESS);
 	if (str[i] == '>')
