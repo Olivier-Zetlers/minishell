@@ -15,8 +15,7 @@
 
 static int	parse_simple_command(t_parser *parser, t_cmd *cmd)
 {
-	while (parser->current && parser->current->type != TOKEN_PIPE
-		&& parser->current->type != TOKEN_SEMICOLON)
+	while (parser->current && parser->current->type != TOKEN_PIPE)
 	{
 		if (parser->current->type >= TOKEN_LESS
 			&& parser->current->type <= TOKEN_DLESS)
