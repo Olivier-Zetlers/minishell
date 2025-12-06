@@ -19,7 +19,6 @@
 typedef struct s_parser
 {
 	t_token		*current;
-	t_cmd		*commands;
 	int			error;
 }	t_parser;
 

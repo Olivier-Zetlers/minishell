@@ -69,7 +69,6 @@ t_cmd	*parser_parse(t_token *tokens)
 	if (!tokens)
 		return (NULL);
 	parser.current = tokens;
-	parser.commands = NULL;
 	parser.error = 0;
 	commands = parse_pipeline(&parser);
 	if (parser.error)
