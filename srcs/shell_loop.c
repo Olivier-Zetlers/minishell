@@ -18,58 +18,6 @@
 #include "expander.h"
 #include "utils.h"
 
-/* OLD VERSION
-static t_token	*extract_until_semicolon(t_token **tokens)
-{
-	t_token	*head;
-	t_token	*tail;
-	t_token	*next;
-
-	head = NULL;
-	tail = NULL;
-	while (*tokens && (*tokens)->type != TOKEN_SEMICOLON)
-	{
-		next = (*tokens)->next;
-		(*tokens)->next = NULL;
-		if (!head)
-			head = *tokens;
-		else
-			tail->next = *tokens;
-		tail = *tokens;
-		*tokens = next;
-	}
-	if (*tokens && (*tokens)->type == TOKEN_SEMICOLON)
-		*tokens = (*tokens)->next;
-	return (head);
-}
-
-static void	execute_all_sequences(t_shell *shell, t_token *tokens)
-{
-	t_token	*seq_tokens;
-	t_cmd	*commands;
-
-	while (tokens)
-	{
-		seq_tokens = extract_until_semicolon(&tokens);
-		if (!seq_tokens)
-			continue ;
-		commands = parser_parse(seq_tokens);
-		token_list_free(seq_tokens);
-		if (commands)
-		{
-			if (process_all_heredocs(shell, commands) == -1)
-			{
-				cmd_list_free(commands);
-				continue ;
-			}
-			expand_commands(shell, commands);
-			shell->last_status = executor_run(shell, commands);
-			cmd_list_free(commands);
-		}
-	}
-}
-*/
-
 static void	execute_all_sequences(t_shell *shell, t_token *tokens)
 {
 	t_cmd	*commands;
