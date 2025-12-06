@@ -64,8 +64,7 @@ int	cmd_add_arg(t_cmd *cmd, char *arg)
 	}
 	new_argv[count] = arg_copy;
 	new_argv[count + 1] = NULL;
-	if (cmd->argv)
-		free(cmd->argv);
+	free(cmd->argv);
 	cmd->argv = new_argv;
 	return (1);
 }
