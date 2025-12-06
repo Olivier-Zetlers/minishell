@@ -78,8 +78,8 @@ typedef struct s_cmd
 {
 	char				**argv;
 	t_redir				*redirects;
-	struct s_cmd		*next;
 	int					pipe_fd[2];
+	struct s_cmd		*next;
 }	t_cmd;
 
 /* Environment variable node */
