@@ -91,9 +91,15 @@ int	parse_redirections(t_parser *parser, t_cmd *cmd)
 	type = token_to_redir_type(parser->current->type);
 	fd = parse_fd_from_token(parser->current->value, type);
 	parser->current = parser->current->next;
-	if (!parser->current || parser->current->type != TOKEN_WORD)
+	if (!parser->current)
 	{
 		syntax_error("newline");
+		parser->error = 1;
+		return (0);
+	}
+	if (parser->current->type != TOKEN_WORD)
+	{
+		syntax_error(parser->current->value);
 		parser->error = 1;
 		return (0);
 	}
