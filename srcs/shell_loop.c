@@ -33,8 +33,10 @@ static void	execute_all_sequences(t_shell *shell, t_token *tokens)
 		cmd_list_free(commands);
 		return ;
 	}
+	shell->expansion_failed = 0;
 	expand_commands(shell, commands);
-	shell->last_status = executor_run(shell, commands);
+	if (!shell->expansion_failed)
+		shell->last_status = executor_run(shell, commands);
 	cmd_list_free(commands);
 }
 

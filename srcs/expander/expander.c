@@ -95,6 +95,7 @@ static void	expand_redirects(t_shell *shell, t_redir *redirects)
 			{
 				free_argv(fields);
 				shell->last_status = 1;
+				shell->expansion_failed = 1;
 				return ;
 			}
 			if (fields && fields[0])

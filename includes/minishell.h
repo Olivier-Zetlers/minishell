@@ -99,6 +99,7 @@ typedef struct s_shell
 	int					running;
 	int					interactive;
 	int					in_heredoc;
+    	int         expansion_failed;
 }	t_shell;
 
 /* Core function prototypes */
