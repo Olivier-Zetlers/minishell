@@ -18,10 +18,7 @@ static void	heredoc_signal_handler(int sig)
 {
 	g_sig = sig;
 	if (sig == SIGINT)
-	{
-		write(1, "\n", 1);
 		exit(130);
-	}
 }
 
 void	setup_heredoc_signals(void)

@@ -14,6 +14,15 @@
 # define EXECUTOR_H
 
 # include "minishell.h"
+# include <termios.h>
+
+/* Heredoc context structure */
+typedef struct s_heredoc
+{
+	int				pipefd[2];
+	struct termios	saved_term;
+	int				term_saved;
+}	t_heredoc;
 
 /* Executor function prototypes */
 int		executor_run(t_shell *shell, t_cmd *commands);
@@ -45,5 +54,11 @@ int		process_all_heredocs(t_shell *shell, t_cmd *commands);
 int		should_expand_heredoc(char *delimiter);
 void	cleanup_cmd_fds(t_cmd *cmd);
 int		dup_and_close(int oldfd, int newfd);
+
+/* Heredoc helpers */
+int		init_heredoc(t_shell *shell, t_heredoc *context);
+void	wait_heredoc_child(pid_t pid, int *status);
+void	restore_heredoc_state(t_shell *shell, t_heredoc *context);
+int		handle_heredoc_sigint(t_shell *shell, t_heredoc *context);
 
 #endif

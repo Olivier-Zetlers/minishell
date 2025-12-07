@@ -26,6 +26,7 @@
 # include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <termios.h>
 
 # define PROMPT "minishell$ "
 # define ERROR_PREFIX "minishell: "

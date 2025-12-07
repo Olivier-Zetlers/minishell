@@ -55,6 +55,7 @@ SRCS_EXEC	= srcs/executor/executor.c \
 
 SRCS_REDIR	= srcs/redirections/redirect_handler.c \
 			  srcs/redirections/heredoc.c \
+			  srcs/redirections/heredoc_helpers.c \
 			  srcs/redirections/fd_manager.c \
 			  srcs/redirections/redirect_utils.c
 

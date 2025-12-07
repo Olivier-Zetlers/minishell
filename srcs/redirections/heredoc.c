@@ -14,6 +14,7 @@
 #include "expander.h"
 #include "signals.h"
 #include "utils.h"
+#include <termios.h>
 
 static void	write_heredoc_line(int fd, char *line, t_shell *shell, int expand)
 {
@@ -109,29 +110,21 @@ static int	heredoc_child(t_shell *shell, char *delimiter, int write_fd)
 
 int	process_heredoc(t_shell *shell, t_redir *redir)
 {
-	int		pipefd[2];
-	pid_t	pid;
-	int		status;
-	int		result;
+	t_heredoc	context;
+	pid_t		pid;
+	int			status;
 
-	if (pipe(pipefd) == -1)
+	if (init_heredoc(shell, &context) == -1)
 		return (-1);
-	shell->in_heredoc = 1;
 	pid = fork();
 	if (pid == 0)
-		heredoc_child(shell, redir->file, pipefd[1]);
-	if (close(pipefd[1]) == -1 && errno != EBADF)
+		heredoc_child(shell, redir->file, context.pipefd[1]);
+	if (close(context.pipefd[1]) == -1 && errno != EBADF)
 		perror("minishell: close warning");
-	result = waitpid(pid, &status, 0);
-	while (result == -1 && errno == EINTR)
-		result = waitpid(pid, &status, 0);
-	shell->in_heredoc = 0;
+	wait_heredoc_child(pid, &status);
+	restore_heredoc_state(shell, &context);
 	if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
-	{
-		if (close(pipefd[0]) == -1 && errno != EBADF)
-			perror("minishell: close warning");
-		return (-1);
-	}
-	redir->heredoc_fd = pipefd[0];
+		return (handle_heredoc_sigint(shell, &context));
+	redir->heredoc_fd = context.pipefd[0];
 	return (0);
 }
