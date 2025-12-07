@@ -20,7 +20,7 @@ static void	check_interactive_mode(t_shell *shell)
 {
 	int	is_tty;
 
-	is_tty = isatty(STDIN_FILENO) & isatty(STDERR_FILENO);
+	is_tty = isatty(STDIN_FILENO) && isatty(STDERR_FILENO);
 	if (is_tty)
 		shell->interactive = 1;
 	else

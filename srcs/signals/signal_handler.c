@@ -19,7 +19,7 @@ void	signal_handler(int sig)
 	g_sig = sig;
 	if (sig == SIGINT)
 	{
-		write(1, "^C\n", 3);
+		write(2, "^C\n", 3);
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
