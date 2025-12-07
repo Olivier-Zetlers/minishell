@@ -18,13 +18,10 @@ volatile sig_atomic_t	g_sig = 0;
 
 static void	check_interactive_mode(t_shell *shell)
 {
-	int	is_tty;
+	shell->interactive = isatty(STDIN_FILENO) && isatty(STDERR_FILENO);
 
-	is_tty = isatty(STDIN_FILENO) && isatty(STDERR_FILENO);
-	if (is_tty)
-		shell->interactive = 1;
-	else
-		shell->interactive = 0;
+	if (shell->interactive)
+		rl_outstream = stderr;
 }
 
 int	main(int argc, char *argv[], char *envp[])
