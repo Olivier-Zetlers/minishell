@@ -109,17 +109,16 @@ char	*expand_string(t_shell *shell, char *str)
 	in_single = 0;
 	while (str[i])
 	{
-		if (str[i] == '\'' && !in_single)
+		if (str[i] == '\'' && !get_quote_state(str, i) && !in_single)
 			in_single = 1;
-		else if (str[i] == '\'' && in_single)
+		else if (str[i] == '\'' && !get_quote_state(str, i) && in_single)
 			in_single = 0;
 		if (str[i] != '$' || in_single || !str[i + 1])
 			append_to_result(&result, &str[i++], 1);
 		else
 			process_char(shell, str, &i, &result);
 	}
-	if (result)
-		return (result);
-	else
+	if (!result)
 		return (ft_strdup(""));
+	return (result);
 }
