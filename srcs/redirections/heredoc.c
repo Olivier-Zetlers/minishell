@@ -85,15 +85,13 @@ static int	heredoc_child(t_shell *shell, char *delimiter, int write_fd)
 	char	*line;
 	char	*delim_clean;
 	int		expand;
-	int		interactive;
 
 	setup_signals(SIG_HEREDOC);
 	delim_clean = remove_quotes(delimiter);
 	expand = should_expand_heredoc(delimiter);
-	interactive = shell->interactive && isatty(STDIN_FILENO);
 	while (1)
 	{
-		line = read_heredoc_line(interactive);
+		line = read_heredoc_line(shell->interactive);
 		if (check_heredoc_line(line, delim_clean))
 		{
 			if (line)
