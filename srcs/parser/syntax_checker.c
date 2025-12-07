@@ -35,9 +35,14 @@ static int	check_pipe_syntax(t_token *token)
 
 static int	check_redirect_syntax(t_token *token)
 {
-	if (!token->next || token->next->type != TOKEN_WORD)
+	if (!token->next)
 	{
 		syntax_error("newline");
+		return (0);
+	}
+	if (token->next->type != TOKEN_WORD)
+	{
+		syntax_error(token->next->value);
 		return (0);
 	}
 	return (1);
