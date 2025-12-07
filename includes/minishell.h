@@ -98,6 +98,7 @@ typedef struct s_shell
 	int					last_status;
 	int					running;
 	int					interactive;
+	int					in_heredoc;
 }	t_shell;
 
 /* Core function prototypes */
