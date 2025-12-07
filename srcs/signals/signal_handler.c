@@ -44,7 +44,7 @@ void	handle_signal_status(t_shell *shell, int status)
 	{
 		shell->last_status = 128 + WTERMSIG(status);
 		if (WTERMSIG(status) == SIGINT)
-			write(1, "\n", 1);
+			write(2, "\n", 1);
 		else if (WTERMSIG(status) == SIGQUIT)
 			write(2, "Quit (core dumped)\n", 19);
 	}
