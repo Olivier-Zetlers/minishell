@@ -12,23 +12,15 @@
 
 #include "builtins.h"
 #include "utils.h"
-#include <pwd.h>
 #include <unistd.h>
 
 static char	*expand_tilde(t_shell *shell, char *path)
 {
-	char			*home;
-	struct passwd	*pwd;
+	char	*home;
 
 	if (!path || path[0] != '~')
 		return (NULL);
 	home = env_get(shell->env, "HOME");
-	if (!home)
-	{
-		pwd = getpwuid(getuid());
-		if (pwd)
-			home = pwd->pw_dir;
-	}
 	if (!home)
 		return (NULL);
 	if (path[1] == '\0')
