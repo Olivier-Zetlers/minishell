@@ -15,12 +15,12 @@
 
 char	*read_line_noninteractive(void)
 {
-	char	buf[1024];
+	char	buf[5120];
 	int		i;
 	int		ret;
 
 	i = 0;
-	while (i < 1023)
+	while (i < 5119)
 	{
 		ret = read(STDIN_FILENO, &buf[i], 1);
 		if (ret <= 0)

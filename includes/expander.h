@@ -35,6 +35,7 @@ int		is_valid_var_char(char c, int first);
 char	*extract_var_name(char *str, int *len);
 char	**split_on_whitespace(char *str);
 int		has_quotes(char *str);
+char	**split_quoted_token(char *expanded);
 
 /* Argv expansion helpers */
 int		count_argv(char **argv);

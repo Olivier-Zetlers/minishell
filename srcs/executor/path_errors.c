@@ -51,10 +51,15 @@ int	is_directory(const char *p)
 int	try_exec_no_search(char **argv, char **envp)
 {
 	if (argv[0][0] == '\0')
-		_exit(report_not_found(""));
+		return (report_not_found(""));
 	if (is_directory(argv[0]))
-		_exit(report_isdir(argv[0]));
+		return (report_isdir(argv[0]));
 	if (access(argv[0], X_OK) == 0)
 		execve(argv[0], argv, envp);
-	_exit(report_not_found(argv[0]));
+	if (errno == EACCES)
+	{
+		print_errno_error(argv[0], NULL);
+		return (126);
+	}
+	return (report_not_found(argv[0]));
 }

@@ -39,18 +39,26 @@ static int	count_fields(char *s)
 {
 	int	count;
 	int	in_field;
+	int	in_single;
+	int	in_double;
 
 	count = 0;
 	in_field = 0;
+	in_single = 0;
+	in_double = 0;
 	while (*s)
 	{
-		if (!ft_isspace(*s) && !in_field)
+		if (*s == '\'' && !in_double)
+			in_single = !in_single;
+		else if (*s == '"' && !in_single)
+			in_double = !in_double;
+		if (!in_single && !in_double && ft_isspace(*s))
+			in_field = 0;
+		else if (!in_field)
 		{
 			in_field = 1;
 			count++;
 		}
-		else if (ft_isspace(*s))
-			in_field = 0;
 		s++;
 	}
 	return (count);
@@ -60,13 +68,23 @@ static char	*extract_field(char **s)
 {
 	char	*start;
 	int		len;
+	int		in_single;
+	int		in_double;
 
+	in_single = 0;
+	in_double = 0;
 	while (**s && ft_isspace(**s))
 		(*s)++;
 	start = *s;
 	len = 0;
-	while (**s && !ft_isspace(**s))
+	while (**s)
 	{
+		if (!in_single && !in_double && ft_isspace(**s))
+			break ;
+		if (**s == '\'' && !in_double)
+			in_single = !in_single;
+		else if (**s == '"' && !in_single)
+			in_double = !in_double;
 		(*s)++;
 		len++;
 	}

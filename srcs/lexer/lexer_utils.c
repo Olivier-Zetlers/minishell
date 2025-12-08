@@ -44,6 +44,11 @@ static t_token_type	check_double_operator(char *str, int *len)
 		*len = 2;
 		return (TOKEN_DGREAT);
 	}
+	if (str[0] == '>' && str[1] == '|')
+	{
+		*len = 2;
+		return (TOKEN_GREAT);
+	}
 	return (TOKEN_EOF);
 }
 

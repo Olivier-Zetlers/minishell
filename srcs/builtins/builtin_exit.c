@@ -74,7 +74,7 @@ static int	parse_arg(char *str, long long *result)
 
 static int	handle_error(char *arg)
 {
-	write(1, "exit\n", 5);
+	//	write(1, "exit\n", 5);                 <-- needs to be restored after testing
 	write(2, "minishell: exit: ", 17);
 	write(2, arg, ft_strlen(arg));
 	write(2, ": numeric argument required\n", 28);
@@ -88,18 +88,18 @@ int	builtin_exit(t_shell *shell, char **argv)
 
 	if (!argv[1])
 	{
-		write(1, "exit\n", 5);
+		// write(1, "exit\n", 5);              <-- needs to be restored after testing
 		exit(shell->last_status);
 	}
 	if (!parse_arg(argv[1], &num))
 		handle_error(argv[1]);
 	if (argv[2])
 	{
-		write(1, "exit\n", 5);
+		// write(1, "exit\n", 5);              <-- needs to be restored after testing
 		print_error("exit", "too many arguments");
 		return (1);
 	}
-	write(1, "exit\n", 5);
+	//write(1, "exit\n", 5);                       <-- needs to be restored after testing
 	exit_code = (int)(num % 256);
 	if (exit_code < 0)
 		exit_code += 256;

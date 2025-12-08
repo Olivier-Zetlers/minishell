@@ -33,6 +33,7 @@ static int	execute_external(t_shell *shell, t_cmd *cmd, char *path)
 static void	execute_child_process(t_shell *shell, t_cmd *cmd, char *path)
 {
 	char	**envp;
+	int		status;
 
 	setup_signals(SIG_CHILD);
 	if (setup_redirections(cmd->redirects) == -1)
@@ -40,7 +41,11 @@ static void	execute_child_process(t_shell *shell, t_cmd *cmd, char *path)
 	if (!path && !ft_strchr(cmd->argv[0], '/'))
 	{
 		envp = env_to_array(shell->env);
-		try_exec_no_search(cmd->argv, envp);
+		if (!envp)
+			exit(1);
+		status = try_exec_no_search(cmd->argv, envp);
+		ft_free_array(envp);
+		exit(status);
 	}
 	execute_external(shell, cmd, path);
 }

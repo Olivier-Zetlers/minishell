@@ -31,7 +31,7 @@
 # define PROMPT "minishell$ "
 # define ERROR_PREFIX "minishell: "
 
-/* Token types for lexical analysis */
+// Token types for lexical analysis
 typedef enum e_token_type
 {
 	TOKEN_WORD,
@@ -44,10 +44,10 @@ typedef enum e_token_type
 	TOKEN_EOF
 }	t_token_type;
 
-/* Single global variable as per requirements */
+// Single global variable as per requirements
 extern volatile sig_atomic_t	g_sig;
 
-/* Token structure for lexer output */
+// Token structure for lexer output
 typedef struct s_token
 {
 	t_token_type		type;
@@ -55,7 +55,7 @@ typedef struct s_token
 	struct s_token		*next;
 }	t_token;
 
-/* Redirection types */
+// Redirection types
 typedef enum e_redir_type
 {
 	REDIR_INPUT,
@@ -64,7 +64,7 @@ typedef enum e_redir_type
 	REDIR_HEREDOC
 }	t_redir_type;
 
-/* Redirection node */
+// Redirection node
 typedef struct s_redir
 {
 	t_redir_type		type;
@@ -74,7 +74,7 @@ typedef struct s_redir
 	struct s_redir		*next;
 }	t_redir;
 
-/* Command node for execution */
+// Command node for execution
 typedef struct s_cmd
 {
 	char				**argv;
@@ -83,7 +83,7 @@ typedef struct s_cmd
 	struct s_cmd		*next;
 }	t_cmd;
 
-/* Environment variable node */
+// Environment variable node
 typedef struct s_env
 {
 	char				*key;
@@ -91,7 +91,7 @@ typedef struct s_env
 	struct s_env		*next;
 }	t_env;
 
-/* Main shell structure */
+// Main shell structure
 typedef struct s_shell
 {
 	t_env				*env;
@@ -99,10 +99,10 @@ typedef struct s_shell
 	int					running;
 	int					interactive;
 	int					in_heredoc;
-    	int         expansion_failed;
+	int					expansion_failed;
 }	t_shell;
 
-/* Core function prototypes */
+// Core function prototypes
 t_shell	*shell_init(char **envp);
 void	init_shell_signals(t_shell *shell);
 void	shell_loop(t_shell *shell);

@@ -61,11 +61,16 @@ int	builtin_env(t_shell *shell, char **argv)
 				printf("%s=%s\n", current->key, current->value);
 			current = current->next;
 		}
-		return (0);
 	}
 	if (has_option)
+	{
 		write(2, "minishell: env: invalid option\n", 31);
+		return (2);
+	}
 	if (first_operand)
+	{
 		print_operand_error(argv, first_operand);
-	return (125);
+		return (127);
+	}
+	return (0);
 }

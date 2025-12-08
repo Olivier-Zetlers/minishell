@@ -24,9 +24,9 @@ char	**expand_and_split_token(t_shell *shell, char *token)
 		return (NULL);
 	if (has_quotes(token))
 	{
-		unquoted = remove_quotes(expanded);
+		fields = split_quoted_token(expanded);
 		free(expanded);
-		return (create_single_field(unquoted));
+		return (fields);
 	}
 	unquoted = remove_quotes(expanded);
 	free(expanded);

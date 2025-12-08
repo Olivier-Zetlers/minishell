@@ -16,29 +16,27 @@
 static int	parse_flags(char *arg, int *newline, int *interpret)
 {
 	int	i;
-	int	valid;
+	int	tmp_newline;
+	int	tmp_interpret;
 
 	if (!arg || arg[0] != '-' || !arg[1])
 		return (0);
 	i = 1;
-	valid = 0;
+	tmp_newline = *newline;
+	tmp_interpret = *interpret;
 	while (arg[i])
 	{
 		if (arg[i] == 'n')
-		{
-			*newline = 0;
-			valid = 1;
-		}
+			tmp_newline = 0;
 		else if (arg[i] == 'e')
-		{
-			*interpret = 1;
-			valid = 1;
-		}
+			tmp_interpret = 1;
 		else
 			return (0);
 		i++;
 	}
-	return (valid);
+	*newline = tmp_newline;
+	*interpret = tmp_interpret;
+	return (1);
 }
 
 static void	print_escape_char(char c)

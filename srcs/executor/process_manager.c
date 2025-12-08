@@ -31,6 +31,7 @@ static int	execute_child_builtin(t_shell *shell, t_cmd *cmd, t_cmd *all_cmds)
 static void	execute_child(t_shell *shell, t_cmd *cmd, char *path, t_cmd *all)
 {
 	char	**envp;
+	int		status;
 
 	setup_signals(SIG_CHILD);
 	setup_child_pipes(cmd, all);
@@ -41,7 +42,11 @@ static void	execute_child(t_shell *shell, t_cmd *cmd, char *path, t_cmd *all)
 	if (!envp)
 		exit(1);
 	if (!path && !ft_strchr(cmd->argv[0], '/'))
-		try_exec_no_search(cmd->argv, envp);
+	{
+		status = try_exec_no_search(cmd->argv, envp);
+		ft_free_array(envp);
+		exit(status);
+	}
 	execve(path, cmd->argv, envp);
 	print_errno_error(cmd->argv[0], NULL);
 	ft_free_array(envp);
@@ -68,10 +73,6 @@ static int	fork_process(t_shell *shell, t_cmd *cmd, t_cmd *all_cmds)
 		return (pid);
 	}
 	path = resolve_path(cmd->argv[0], shell->env);
-	if (!path && ft_strchr(cmd->argv[0], '/'))
-		return (print_cmd_error(cmd->argv[0]), -127);
-	if (!path && !ft_strchr(cmd->argv[0], '/') && penv && *penv)
-		return (print_cmd_error(cmd->argv[0]), -127);
 	pid = fork();
 	if (pid == 0)
 		execute_child(shell, cmd, path, all_cmds);

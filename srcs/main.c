@@ -18,8 +18,8 @@ volatile sig_atomic_t	g_sig = 0;
 
 static void	check_interactive_mode(t_shell *shell)
 {
-	shell->interactive = isatty(STDIN_FILENO) && isatty(STDERR_FILENO);
-
+	// shell->interactive = isatty(STDIN_FILENO) && isatty(STDERR_FILENO);   <-- original line to restore after testing
+	shell->interactive = isatty(STDIN_FILENO); // <-- Needs to be removed
 	if (shell->interactive)
 		rl_outstream = stderr;
 }

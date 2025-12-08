@@ -42,6 +42,7 @@ SRCS_EXPAND	= srcs/expander/expander.c \
 			  srcs/expander/quote_removal.c \
 			  srcs/expander/field_split.c \
 			  srcs/expander/expansion_utils.c \
+			  srcs/expander/split_quoted_token.c \
 			  srcs/expander/argv_expansion.c
 
 SRCS_EXEC	= srcs/executor/executor.c \
