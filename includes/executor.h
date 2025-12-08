@@ -6,7 +6,7 @@
 /*   By: student <student@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 00:00:00 by student          #+#    #+#             */
-/*   Updated: 2025/01/01 00:00:00 by student         ###   ########.fr       */
+/*   Updated: 2025/12/08 20:13:56 by ozetlers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int		handle_path_error(t_shell *shell, char *cmd);
 int		execute_redirections_only(t_cmd *cmd);
 int		execute_single_builtin(t_shell *shell, t_cmd *cmd);
 int		pipeline_error(t_cmd *commands, int *pids, int status);
+int	fork_one_cmd(t_shell *sh, t_cmd *cmd, int *prev_read, int pfd[2]);
 
 
 /* Path resolver helpers */

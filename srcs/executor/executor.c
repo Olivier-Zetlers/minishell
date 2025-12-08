@@ -6,7 +6,7 @@
 /*   By: student <student@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 00:00:00 by student          #+#    #+#             */
-/*   Updated: 2025/01/01 00:00:00 by student         ###   ########.fr       */
+/*   Updated: 2025/12/08 20:10:04 by ozetlers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,3 +94,4 @@ int	executor_run(t_shell *shell, t_cmd *commands)
 	else
 		return (execute_pipeline(shell, commands));
 }
+

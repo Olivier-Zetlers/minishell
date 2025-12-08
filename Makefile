@@ -6,7 +6,7 @@
 #    By: student <student@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/01 00:00:00 by student          #+#    #+#              #
-#    Updated: 2025/01/01 00:00:00 by student         ###   ########.fr        #
+#    Updated: 2025/12/08 20:12:59 by ozetlers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SRCS_EXEC	= srcs/executor/executor.c \
 			  srcs/executor/executor_utils.c \
 			  srcs/executor/executor_single_utils.c \
 			  srcs/executor/executor_cleanup.c \
+			  srcs/executor/pipeline_exec.c \
 			  srcs/executor/path_resolver.c \
 			  srcs/executor/process_manager.c \
 			  srcs/executor/process_utils.c \

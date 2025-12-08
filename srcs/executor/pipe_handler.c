@@ -6,18 +6,11 @@
 /*   By: student <student@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 00:00:00 by student          #+#    #+#             */
-/*   Updated: 2025/01/01 00:00:00 by student         ###   ########.fr       */
+/*   Updated: 2025/12/08 19:53:38 by ozetlers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
-
-static int	create_pipe_for_cmd(t_cmd *cmd)
-{
-	if (pipe(cmd->pipe_fd) == -1)
-		return (0);
-	return (1);
-}
 
 int	setup_pipes(t_cmd *cmd, t_cmd *prev)
 {
@@ -27,8 +20,11 @@ int	setup_pipes(t_cmd *cmd, t_cmd *prev)
 	current = cmd;
 	while (current && current->next)
 	{
-		if (!create_pipe_for_cmd(current))
+		if (pipe(current->pipe_fd) == -1)
+		{
+			close_all_pipes(cmd);
 			return (0);
+		}
 		current = current->next;
 	}
 	return (1);
