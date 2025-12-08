@@ -39,6 +39,9 @@ int		fork_empty_command(t_cmd *cmd, t_cmd *all_cmds);
 void	restore_standard_fds(int saved_fds[3]);
 void	save_standard_fds(int saved_fds[3]);
 int		handle_path_error(t_shell *shell, char *cmd);
+int		execute_redirections_only(t_cmd *cmd);
+int		execute_single_builtin(t_shell *shell, t_cmd *cmd);
+
 
 /* Path resolver helpers */
 int		report_not_found(const char *cmd);

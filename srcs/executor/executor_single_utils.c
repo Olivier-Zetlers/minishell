@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell_cleanup.c                                    :+:      :+:    :+:   */
+/*   executor_single_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: student <student@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,21 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "utils.h"
+#include "executor.h"
+#include "builtins.h"
 
-void	shell_cleanup(t_shell *shell)
+int	execute_redirections_only(t_cmd *cmd)
 {
-	if (!shell)
-		return ;
-	if (shell->env)
-		env_free(shell->env);
-	rl_clear_history();
-	free(shell);
+	int	saved_fds[3];
+
+	save_standard_fds(saved_fds);
+	if (setup_redirections(cmd->redirects) == -1)
+	{
+		restore_standard_fds(saved_fds);
+		return (1);
+	}
+	restore_standard_fds(saved_fds);
+	return (0);
 }
 
-void	exit_with_cleanup(t_shell *shell, int status)
+int	execute_single_builtin(t_shell *shell, t_cmd *cmd)
 {
-	shell_cleanup(shell);
-	exit(status);
+	int	saved_fds[3];
+	int	status;
+
+	save_standard_fds(saved_fds);
+	if (setup_redirections(cmd->redirects) == -1)
+	{
+		restore_standard_fds(saved_fds);
+		return (1);
+	}
+	status = execute_builtin(shell, cmd->argv);
+	restore_standard_fds(saved_fds);
+	return (status);
 }

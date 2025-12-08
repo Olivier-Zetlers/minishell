@@ -107,6 +107,7 @@ t_shell	*shell_init(char **envp);
 void	init_shell_signals(t_shell *shell);
 void	shell_loop(t_shell *shell);
 void	shell_cleanup(t_shell *shell);
+void	exit_with_cleanup(t_shell *shell, int status);
 void	shell_execute_line(t_shell *shell, char *line);
 char	*read_line_noninteractive(void);
 

@@ -14,6 +14,8 @@
 #include "utils.h"
 #include <limits.h>
 
+/* Checking whether adding next digit while parsing numeric arg to exit causes 
+ * signed long long ovf (based on LLONG_MAX) */
 static int	check_ovf(unsigned long long n, int sign, char c)
 {
 	unsigned long long	max_div;
@@ -72,13 +74,14 @@ static int	parse_arg(char *str, long long *result)
 	return (1);
 }
 
-static int	handle_error(char *arg)
+static int	handle_error(t_shell *shell, char *arg)
 {
 	//	write(1, "exit\n", 5);                 <-- needs to be restored after testing
 	write(2, "minishell: exit: ", 17);
 	write(2, arg, ft_strlen(arg));
 	write(2, ": numeric argument required\n", 28);
-	exit(2);
+	exit_with_cleanup(shell, 2);
+	return (2);
 }
 
 int	builtin_exit(t_shell *shell, char **argv)
@@ -89,10 +92,11 @@ int	builtin_exit(t_shell *shell, char **argv)
 	if (!argv[1])
 	{
 		// write(1, "exit\n", 5);              <-- needs to be restored after testing
-		exit(shell->last_status);
+		exit_with_cleanup(shell, shell->last_status);
+		return (shell->last_status);
 	}
 	if (!parse_arg(argv[1], &num))
-		handle_error(argv[1]);
+		return (handle_error(shell, argv[1]));
 	if (argv[2])
 	{
 		// write(1, "exit\n", 5);              <-- needs to be restored after testing
@@ -103,5 +107,6 @@ int	builtin_exit(t_shell *shell, char **argv)
 	exit_code = (int)(num % 256);
 	if (exit_code < 0)
 		exit_code += 256;
-	exit(exit_code);
+	exit_with_cleanup(shell, exit_code);
+	return (exit_code);
 }

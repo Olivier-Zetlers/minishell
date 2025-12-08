@@ -108,6 +108,7 @@ static int	heredoc_child(t_shell *shell, char *delimiter, int write_fd)
 	exit(0);
 }
 
+/*
 int	process_heredoc(t_shell *shell, t_redir *redir)
 {
 	t_heredoc	context;
@@ -119,6 +120,32 @@ int	process_heredoc(t_shell *shell, t_redir *redir)
 	pid = fork();
 	if (pid == 0)
 		heredoc_child(shell, redir->file, context.pipefd[1]);
+	if (close(context.pipefd[1]) == -1 && errno != EBADF)
+		perror("minishell: close warning");
+	wait_heredoc_child(pid, &status);
+	restore_heredoc_state(shell, &context);
+	if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
+		return (handle_heredoc_sigint(shell, &context));
+	redir->heredoc_fd = context.pipefd[0];
+	return (0);
+}
+*/
+
+int	process_heredoc(t_shell *shell, t_redir *redir)
+{
+	t_heredoc	context;
+	pid_t		pid;
+	int			status;
+
+	if (init_heredoc(shell, &context) == -1)
+		return (-1);
+	pid = fork();
+	if (pid == 0)
+	{
+		if (close(context.pipefd[0]) == -1 && errno != EBADF)
+			perror("minishell: close warning");
+		heredoc_child(shell, redir->file, context.pipefd[1]);
+	}
 	if (close(context.pipefd[1]) == -1 && errno != EBADF)
 		perror("minishell: close warning");
 	wait_heredoc_child(pid, &status);
