@@ -48,6 +48,7 @@ SRCS_EXPAND	= srcs/expander/expander.c \
 SRCS_EXEC	= srcs/executor/executor.c \
 			  srcs/executor/executor_utils.c \
 			  srcs/executor/executor_single_utils.c \
+			  srcs/executor/executor_cleanup.c \
 			  srcs/executor/path_resolver.c \
 			  srcs/executor/process_manager.c \
 			  srcs/executor/process_utils.c \

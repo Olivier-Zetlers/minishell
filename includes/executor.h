@@ -41,6 +41,7 @@ void	save_standard_fds(int saved_fds[3]);
 int		handle_path_error(t_shell *shell, char *cmd);
 int		execute_redirections_only(t_cmd *cmd);
 int		execute_single_builtin(t_shell *shell, t_cmd *cmd);
+int		pipeline_error(t_cmd *commands, int *pids, int status);
 
 
 /* Path resolver helpers */

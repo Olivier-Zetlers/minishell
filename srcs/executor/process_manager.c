@@ -108,10 +108,12 @@ int	execute_pipeline(t_shell *shell, t_cmd *commands)
 	while (current && ++count)
 		current = current->next;
 	pids = safe_malloc(sizeof(int) * count);
-	if (!pids || !setup_pipes(commands, NULL))
+	if (!pids)
 		return (1);
+	if (!setup_pipes(commands, NULL))
+		return (pipeline_error(commands, pids, 1));
 	if (fork_all(shell, commands, pids, count) != 0)
-		return (1);
+		return (pipeline_error(commands, pids, 1));
 	close_all_pipes(commands);
 	setup_signals(SIG_EXECUTING);
 	shell->last_status = wait_for_children(pids, count);
