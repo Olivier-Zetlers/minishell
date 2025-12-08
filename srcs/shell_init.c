@@ -6,7 +6,7 @@
 /*   By: student <student@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 00:00:00 by student          #+#    #+#             */
-/*   Updated: 2025/01/01 00:00:00 by student         ###   ########.fr       */
+/*   Updated: 2025/12/08 20:41:46 by ozetlers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,17 @@ static void	update_shlvl(t_env *env[])
 
 t_shell	*shell_init(char *envp[])
 {
+	/* Start of debug lines */
+	int i = 0;
+	while (envp[i])
+	{
+		if (strncmp(envp[i], "SHLVL=", 6) == 0)
+			fprintf(stderr, "DEBUG: Received %s\n", envp[i]);
+		i++;
+	}
+
+
+	/* End of debug lines*/
 	t_shell	*shell;
 
 	shell = safe_malloc(sizeof(t_shell));
